@@ -1,13 +1,18 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:news_app_api/controller/top_trending_controller.dart';
 import 'package:news_app_api/view/widgets/recomentation_widget.dart';
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final provRead = context.read<TopTrendingController>();
+    final provWatch = context.watch<TopTrendingController>();
+
     return Scaffold(
       appBar: AppBar(
         leading: CircleAvatar(
@@ -73,14 +78,14 @@ class MainScreen extends StatelessWidget {
                     image: DecorationImage(
                         fit: BoxFit.cover,
                         image: NetworkImage(
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGrytE-p8E8udHcmAhyL3TkXdx6uirlcn1tQ&s'))),
+                            'https://t3.ftcdn.net/jpg/03/27/55/60/360_F_327556002_99c7QmZmwocLwF7ywQ68ChZaBry1DbtD.jpg'))), //image
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Trending news',
+                        'hiiiiiiiiii',
                         style: GoogleFonts.alice(
                             fontSize: 10,
                             color: Colors.black,
@@ -88,7 +93,7 @@ class MainScreen extends StatelessWidget {
                       ),
                       Spacer(),
                       Text(
-                        'Alaxander Wear Modified Helmet in Cycle race',
+                        'qwertyuio asdfghjkl zxcvbnm,',
                         style:
                             GoogleFonts.aleo(fontSize: 15, color: Colors.white),
                       )

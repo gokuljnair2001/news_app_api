@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_api/controller/search_screen_controller.dart';
+import 'package:news_app_api/controller/top_trending_controller.dart';
 import 'package:news_app_api/view/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +15,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => SearchScreenController(),)
+        ChangeNotifierProvider(
+          create: (context) => SearchScreenController(),
+        ),
+        ChangeNotifierProvider(create: (context) => TopTrendingController())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
