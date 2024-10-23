@@ -1,13 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:news_app_api/controller/details_screen_controller.dart';
+import 'package:news_app_api/controller/hive_controller.dart';
+import 'package:news_app_api/main.dart';
+import 'package:news_app_api/model/bookmark_model.dart';
+import 'package:news_app_api/view/savedscreen/savedscreen.dart';
+import 'package:provider/provider.dart';
 
 class NewsDetailsScreen extends StatelessWidget {
-  const NewsDetailsScreen({super.key});
+  NewsDetailsScreen(
+      {super.key, this.author, this.image, this.content, this.title});
+  String? image;
+  String? author;
+  String? content;
+  String? title;
 
   @override
   Widget build(BuildContext context) {
+
+
+
+    final provWatch = context.watch<DetailsScreenController>();
+    final provhiveWatch = context.watch<HiveController>();
+    final provREad = context.read<DetailsScreenController>();
     return SafeArea(
       child: Scaffold(
+        ///////////////////////////////
+
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          actions: [
+            IconButton(
+              onPressed: () async {
+                await provhiveWatch.saveBookmark(BookmarkModel(
+                    author: author, title: title, urlToImage: image));
+
+                context.read<DetailsScreenController>().onSaved();
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => Savedscreen(),
+                //     ));
+              },
+              icon: provWatch.isSaved
+                  ? Icon(Icons.bookmark_outline, color: Colors.black)
+                  : Icon(
+                      Icons.bookmark,
+                      color: Colors.blue,
+                    ),
+            )
+          ],
+        ),
+
+/////////////////////////////
+
+        extendBodyBehindAppBar: true,
         body: ListView(
           children: [
             Container(
@@ -16,7 +65,7 @@ class NewsDetailsScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(
-                    'https://media.istockphoto.com/id/1309699912/vector/vector-illustration-daily-news-paper-template-with-text-and-picture-placeholder.jpg?s=612x612&w=0&k=20&c=xyCcw4mibGweJ1exlqmhFqWNumkbPTzx-YiqXZj-kxc=',
+                    image!,
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -49,7 +98,7 @@ class NewsDetailsScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'Alaxander wears modified helmet in the race... blaa blaaa blaaaaa blaaaaaa',
+                      title!,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.rubik(
@@ -85,7 +134,7 @@ class NewsDetailsScreen extends StatelessWidget {
                         width: 10,
                       ),
                       Text(
-                        'CNN News ⬇️',
+                        author!,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.rubik(
@@ -100,10 +149,11 @@ class NewsDetailsScreen extends StatelessWidget {
                     height: 15,
                   ),
                   Text(
-                    'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for "lorem ipsum" will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',
+                    maxLines: 30,
+                    content!,
                     textAlign: TextAlign.justify,
                     style: GoogleFonts.k2d(
-                      fontSize: 17,
+                      fontSize: 21,
                       letterSpacing: -1,
                       fontWeight: FontWeight.w400,
                     ),

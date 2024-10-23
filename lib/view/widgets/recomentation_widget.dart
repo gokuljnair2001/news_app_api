@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:news_app_api/controller/top_trending_controller.dart';
+import 'package:provider/provider.dart';
 
 class RecomentationWidget extends StatelessWidget {
   const RecomentationWidget({
@@ -15,6 +17,8 @@ class RecomentationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+      final provRead = context.read<TopTrendingController>();
+    final provWatch = context.watch<TopTrendingController>();
     return Row(
       children: [
         Container(
@@ -25,7 +29,7 @@ class RecomentationWidget extends StatelessWidget {
               image: DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9-foehy4LB0rywbjC8XLwnA29wFW9Q3oE4Q&s'))),
+                      image!))),
         ),
         SizedBox(
           width: 10,
@@ -34,7 +38,7 @@ class RecomentationWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'sports',
+              category!,
               style: GoogleFonts.ubuntu(fontSize: 15),
             ),
             SizedBox(
@@ -45,7 +49,7 @@ class RecomentationWidget extends StatelessWidget {
               child: Text(
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                'Bottom Navigation Bar is a navigation component displaying three to five destinations at the bottom of a screen.',
+                title!,
                 style: GoogleFonts.ubuntu(
                     fontSize: 18,
                     fontStyle: FontStyle.italic,
